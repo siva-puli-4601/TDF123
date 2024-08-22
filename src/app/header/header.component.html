@@ -1,0 +1,8 @@
+<header>
+  <div class="header-content">
+    <a *ngIf="!value" [routerLink]="['/login']" class="header-link">Login</a>
+    <button *ngIf="value" (click)="logOut()" class="header-button">Logout</button>
+    <a [routerLink]="['/regis']" class="header-link">Registration</a>
+  </div>
+</header>
+<!-- <router-outlet></router-outlet> -->

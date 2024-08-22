@@ -1,0 +1,54 @@
+<div>
+    <form [formGroup]="reactiveform" (ngSubmit)="onSubmit()">
+      <label for="Usrname">Username</label>
+      <input [class.is-invalid]="reactiveform.get('username').invalid && reactiveform.get('username').touched" formControlName="username" type="text"/><br>
+      <div *ngIf="reactiveform.get('username').invalid && reactiveform.get('username').touched">
+        <!-- Required validation error -->
+        <small *ngIf="reactiveform.get('username').errors?.required">Username is required</small>
+        
+        <!-- Minimum length validation error -->
+        <small *ngIf="reactiveform.get('username').errors?.minlength">
+          Username must be at least 4 characters
+        </small>
+      
+        <!-- Custom validation error -->
+        <small *ngIf="reactiveform.get('username').errors?.errorUsername">
+          {{ reactiveform.get('username').errors.errorUsername.value }} is not a valid username
+        </small>
+      </div>
+      
+      <label for="Passwd">Password</label>
+      <input formControlName="password" type="password" /><br>
+      <label for="Conform Password" >Conform Password</label>
+      <input formControlName="conformpass" type="password"/><br>
+      <small *ngIf="reactiveform.errors?.erroemsg">{{reactiveform.errors.erroemsg.value }} Password Mis path</small>
+      <div formGroupName="address">
+        <label for="city">City</label>
+        <input formControlName="city" type="text"/><br>
+        <label for="country">Country</label>
+        <input formControlName="country" type="text"/><br>
+        <label for="pincode">Pincode</label>
+        <input formControlName="pincode" type="text"/><br>
+      </div>
+      <label for="mail">email</label>
+      <input formControlName="email" type="email"/>
+      <button type="button" (click)="alternativeMails()">ADD EMAIL</button>
+      <button type="button" (click)="deleteMail()">Delete</button>
+      <br>
+      <div formArrayName="alternateArrays" *ngFor="let email of reactiveform.get('alternateArrays').controls;let i=index">
+        <input type="text" [formControlName]="i"/>
+      </div>
+      <small *ngIf="reactiveform.get('email').errors?.required">Email Required</small><br>
+    
+      <input formControlName="subscribe" type="checkbox"/> checkbox<br>
+    
+      <button [disabled]="!reactiveform.valid" type="submit">Submit</button>
+      <button type="button" (click)="assignData()">assaignData</button>
+      <button type="button" (click)="someData()">someData</button><br>
+      <!-- <button [disabled]="!reactiveform.valid" type="submit">Submit</button> -->
+      
+    </form>
+    </div>
+    <!--  -->
+    <!-- <a [routerLink]="['/login']" >Login</a> -->
+    {{reactiveform.value | json}}
